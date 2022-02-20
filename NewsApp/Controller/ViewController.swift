@@ -17,9 +17,13 @@ class ViewController: UIViewController {
         view.backgroundColor = .systemBackground
         configureTableView()
         
-        NetworkManager.shared.getNewsItems { NewsResponse in
-            NewsResponse.articles.forEach { article in
-                print(article.title)
+        NetworkManager.shared.getNewsItems { (result) in
+            switch result {
+            case .success(let response):
+                break
+                
+            case .failure(let error):
+                print(error.rawValue)
             }
         }
     }

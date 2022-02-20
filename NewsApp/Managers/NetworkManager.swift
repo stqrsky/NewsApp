@@ -7,6 +7,10 @@
 
 import Foundation
 
+enum NewsError: String, Error {
+    case universalError = "An unknown error has occurred"
+}
+
 class NetworkManager {
     static let shared = NetworkManager()
     private init() {
@@ -16,10 +20,11 @@ class NetworkManager {
     private let baseURLString = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey="
     private let apiKey = "242a1569a8e04ef3b980f989de060ca1"
     
-    func getNewsItems (completion: @escaping (NewsResponse) -> Void) {
+    func getNewsItems (completion: @escaping ((Result<NewsResponse, NewsError>) -> Void)) {
         let endpoint = baseURLString + apiKey
         
         guard let url = URL(string: endpoint) else {
+            completion(.failure(.universalError))
             return
         }
         
@@ -41,7 +46,7 @@ class NetworkManager {
                 decoder.dateDecodingStrategy = .iso8601
                 
                 let newsResponse = try decoder.decode(NewsResponse.self, from: data)
-                completion(newsResponse)
+                completion(.success(newsResponse))
             } catch {
                 print(error.localizedDescription)
             }
