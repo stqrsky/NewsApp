@@ -9,7 +9,7 @@ import UIKit
 
 class NewsTableViewCell: UITableViewCell {
     
-    
+    static let reuseID = "newsCell"
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         ])
         
         tableView.dataSource = self
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: "newsCell")
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseID)
     }
 
 
@@ -43,7 +43,7 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath)
         cell.textLabel?.text = data[indexPath.row]
         
         return cell
