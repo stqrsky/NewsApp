@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     private func configureTableView() {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.pinToEdges(of: view, withPadding: 40)
+        tableView.pinToEdges(of: view)
         
         tableView.dataSource = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseID)
