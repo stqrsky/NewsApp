@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private let tableView = UITableView()
-    private var data = ["1", "2", "3", "Have fun!"]
+    private var data: [Article] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,8 +19,8 @@ class ViewController: UIViewController {
         
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
-            case .success(let response):
-                self.data = response.articles.map { $0.title ?? "N/A"}
+            case .success(let newsResponse):
+                self.data = newsResponse.articles
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -54,10 +54,10 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath)
-        cell.textLabel?.text = data[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath) as? NewsTableViewCell
+        cell?.setCell(article: data[indexPath.row])
         
-        return cell
+        return cell ?? UITableViewCell()
     }
     
     

@@ -50,7 +50,7 @@ class NetworkManager {
             
             do {
                 let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
+//                decoder.dateDecodingStrategy = .iso8601
                 
                 let newsResponse = try decoder.decode(NewsResponse.self, from: data)
                 completion(.success(newsResponse))

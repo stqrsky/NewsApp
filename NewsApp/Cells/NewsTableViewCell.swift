@@ -15,6 +15,7 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -22,6 +23,7 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -49,6 +51,11 @@ class NewsTableViewCell: UITableViewCell {
         
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(subtitleLabel)
+    }
+    
+    func setCell(article: Article) {
+        titleLabel.text = article.title ?? "N/A"
+        subtitleLabel.text = article.publishedAt
     }
 
 }
