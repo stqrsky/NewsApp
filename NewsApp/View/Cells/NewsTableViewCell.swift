@@ -11,21 +11,9 @@ class NewsTableViewCell: UITableViewCell {
     
     static let reuseID = "newsCell"
     
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        return label
-    }()
+    private let titleLabel = NewsLabel(fontStyle: .headline)
     
-    private let subtitleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        return label
-    }()
+    private let subtitleLabel = NewsLabel(fontStyle: .subheadline)
     
     private let titleStackView: UIStackView = {
         let stackView = UIStackView()
@@ -55,7 +43,7 @@ class NewsTableViewCell: UITableViewCell {
     
     func setCell(article: Article) {
         titleLabel.text = article.title ?? "N/A"
-        subtitleLabel.text = article.publishedAt
+        subtitleLabel.text = "\(article.publishedAt?.getStringRepresentation() ?? "N/A") Uhr"
     }
 
 }
