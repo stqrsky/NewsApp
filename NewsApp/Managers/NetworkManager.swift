@@ -9,6 +9,10 @@ import Foundation
 
 enum NewsError: String, Error {
     case universalError = "An unknown error has occurred"
+    case unableToComplete = "Der Request konnte nicht abgeschlossen werden. Bitte überprüfe ggf. deine Internetverbindung"
+    case invalidResponse = "Ungültige Serverantwort. Versuchen Sie es später erneut."
+    case invalidData = "Ungültige Daten erhalten. Versuchen Sie es später erneut."
+    case invalidURL = "Es wurde eine ungültige URL verwendet"
 }
 
 class NetworkManager {
@@ -24,20 +28,23 @@ class NetworkManager {
         let endpoint = baseURLString + apiKey
         
         guard let url = URL(string: endpoint) else {
-            completion(.failure(.universalError))
+            completion(.failure(.invalidURL))
             return
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if error != nil {
+                completion(.failure(.unableToComplete))
                 return
             }
             
             guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completion(.failure(.invalidResponse))
                 return
             }
             
             guard let data = data else {
+                completion(.failure(.invalidData))
                 return
             }
             
@@ -48,7 +55,7 @@ class NetworkManager {
                 let newsResponse = try decoder.decode(NewsResponse.self, from: data)
                 completion(.success(newsResponse))
             } catch {
-                print(error.localizedDescription)
+                completion(.failure(.invalidData))
             }
         }
         

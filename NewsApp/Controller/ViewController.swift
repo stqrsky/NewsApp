@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private let tableView = UITableView()
-    private let data = ["1", "2", "3", "Have fun!"]
+    private var data = ["1", "2", "3", "Have fun!"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,15 @@ class ViewController: UIViewController {
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
             case .success(let response):
-                break
+                self.data = response.articles.map { $0.title ?? "N/A"}
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+//                response.articles.forEach { (article) in
+//                    print(article.title ?? "N/A")
+//                }
                 
             case .failure(let error):
                 print(error.rawValue)
