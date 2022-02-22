@@ -46,6 +46,9 @@ class NewsTableViewCell: UITableViewCell {
     
     private func configureUI() {
         contentView.addSubview(titleStackView)
+        
+        titleStackView.addArrangedSubview(titleLabel)
+        titleStackView.addArrangedSubview(subtitleLabel)
     }
 
 }
