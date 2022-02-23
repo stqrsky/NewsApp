@@ -15,8 +15,7 @@ struct NewsResponse: Codable {
 }
 
 // MARK: - Article
-struct Article: Codable {
-    let source: Source?
+struct Article: Codable, Hashable {
     let author: String?
     let title: String?
     let description: String?
@@ -25,18 +24,4 @@ struct Article: Codable {
     let publishedAt: Date?
     let content: String?
 
-}
-
-// MARK: - Source
-struct Source: Codable {
-    let id: String?
-    let name: String?
-}
-
-enum ID: String, Codable {
-    case techcrunch = "techcrunch"
-}
-
-enum Name: String, Codable {
-    case techCrunch = "TechCrunch"
 }

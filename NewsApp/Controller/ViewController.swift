@@ -8,8 +8,13 @@
 import UIKit
 
 class ViewController: UIViewController {
+    enum Section {
+        case main
+    }
     
     private let tableView = UITableView()
+    var dataSource: UITableViewDiffableDataSource<Section, Article>!
+    
     private var data: [Article] = []
 
     override func viewDidLoad() {
@@ -41,25 +46,34 @@ class ViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.pinToEdges(of: view)
         
-        tableView.dataSource = self
+        
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseID)
     }
 
-
-}
-
-extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+    func configureDataSource() {
+        dataSource = UITableViewDiffableDataSource<Section, Article>(tableView: tableView, cellProvider: { (tableView, indexPath, article) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath) as? NewsTableViewCell
+            
+            cell?.setCell(article: article)
+            
+            return cell
+        })
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath) as? NewsTableViewCell
-        cell?.setCell(article: data[indexPath.row])
-        
-        return cell ?? UITableViewCell()
-    }
-    
-    
 }
+
+//extension ViewController: UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return data.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath) as? NewsTableViewCell
+//        cell?.setCell(article: data[indexPath.row])
+//
+//        return cell ?? UITableViewCell()
+//    }
+//
+//
+//}
 
