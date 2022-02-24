@@ -21,16 +21,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureTableView()
+        configureDataSource()
         
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
             case .success(let newsResponse):
-                self.data = newsResponse.articles
+//                self.data = newsResponse.articles
                 
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                
+                self.updateData(articles: newsResponse.articles)
 //                response.articles.forEach { (article) in
 //                    print(article.title ?? "N/A")
 //                }
@@ -58,6 +56,13 @@ class ViewController: UIViewController {
             
             return cell
         })
+    }
+    
+    func updateData(articles: [Article]) {
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(articles)
+        self.dataSource.apply(snapshot)
     }
     
 }
