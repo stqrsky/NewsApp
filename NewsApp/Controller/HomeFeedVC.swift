@@ -15,7 +15,7 @@ class HomeFeedVC: UIViewController {
     private let tableView = UITableView()
     var dataSource: UITableViewDiffableDataSource<Section, Article>!
     
-    private var data: [Article] = []
+    private var articles: [Article] = []
     
     private var containerView: UIView!
 
@@ -41,7 +41,8 @@ class HomeFeedVC: UIViewController {
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
             case .success(let newsResponse):
-                self.updateData(articles: newsResponse.articles)
+                self.articles = newsResponse.articles
+                self.updateData(articles: self.articles)
 
             case .failure(let error):
                 self.presentWarningAlert(title: "Fehler", message: error.rawValue)
@@ -61,7 +62,7 @@ class HomeFeedVC: UIViewController {
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.pinToEdges(of: view)
-        
+        tableView.delegate = self
         
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.reuseID)
     }
@@ -116,4 +117,13 @@ class HomeFeedVC: UIViewController {
     
 }
 
-
+extension HomeFeedVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if let selectedArticle = dataSource.itemIdentifier(for: indexPath) {
+            let detailVC = DetailVC(article: selectedArticle)
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
+    }
+}
