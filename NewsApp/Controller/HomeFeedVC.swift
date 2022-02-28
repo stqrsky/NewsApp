@@ -44,12 +44,7 @@ class HomeFeedVC: UIViewController {
                 self.updateData(articles: newsResponse.articles)
 
             case .failure(let error):
-                let alert = UIAlertController(title: "Fehler", message: error.rawValue, preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
-                
-                DispatchQueue.main.async {
-                    self.present(alert, animated: true)
-                }
+                self.presentWarningAlert(title: "Fehler", message: error.rawValue)
             }
             
             self.dismissLoadingSpinner()
