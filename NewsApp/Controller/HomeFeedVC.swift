@@ -44,7 +44,12 @@ class HomeFeedVC: UIViewController {
                 self.updateData(articles: newsResponse.articles)
 
             case .failure(let error):
-                print(error.rawValue)
+                let alert = UIAlertController(title: "Fehler", message: error.rawValue, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel))
+                
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true)
+                }
             }
             
             self.dismissLoadingSpinner()
@@ -92,7 +97,7 @@ class HomeFeedVC: UIViewController {
         containerView.alpha = 0
         
         UIView.animate(withDuration: 0.25) {
-            self.containerView.alpha = 0.6
+            self.containerView.alpha = 0.85
         }
         
         let activityIndicator = UIActivityIndicatorView(style: .large)
