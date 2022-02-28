@@ -22,6 +22,7 @@
 		F8FE62E327CD0985002C9498 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE62E227CD0985002C9498 /* DetailVC.swift */; };
 		F8FE62E527CD0D42002C9498 /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE62E427CD0D42002C9498 /* UIStackView+Ext.swift */; };
 		F8FE62E827CD1074002C9498 /* NewsImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE62E727CD1074002C9498 /* NewsImageView.swift */; };
+		F8FE62EB27CD126E002C9498 /* NewsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FE62EA27CD126E002C9498 /* NewsButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		F8FE62E227CD0985002C9498 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		F8FE62E427CD0D42002C9498 /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		F8FE62E727CD1074002C9498 /* NewsImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsImageView.swift; sourceTree = "<group>"; };
+		F8FE62EA27CD126E002C9498 /* NewsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 		F8FE62DA27C5242E002C9498 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F8FE62E927CD1234002C9498 /* Buttons */,
 				F8FE62E627CD1043002C9498 /* Images */,
 				F8FE62DB27C5244A002C9498 /* Labels */,
 				F8F447A627C282E20064E5A7 /* Cells */,
@@ -156,6 +159,14 @@
 				F8FE62E727CD1074002C9498 /* NewsImageView.swift */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		F8FE62E927CD1234002C9498 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F8FE62EA27CD126E002C9498 /* NewsButton.swift */,
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +247,7 @@
 				F8F447A227C279240064E5A7 /* UIView+Ext.swift in Sources */,
 				F8FE62D927C51EA1002C9498 /* Date+Ext.swift in Sources */,
 				F8F447AB27C283590064E5A7 /* NetworkManager.swift in Sources */,
+				F8FE62EB27CD126E002C9498 /* NewsButton.swift in Sources */,
 				F8F447A027C275570064E5A7 /* NewsTableViewCell.swift in Sources */,
 				F8FE62E827CD1074002C9498 /* NewsImageView.swift in Sources */,
 				F8FE62DD27C5245A002C9498 /* NewsLabel.swift in Sources */,

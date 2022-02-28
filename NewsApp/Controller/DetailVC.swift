@@ -32,6 +32,8 @@ class DetailVC: UIViewController {
     init(article: Article) {
         super.init(nibName: nil, bundle: nil)
         self.article = article
+        configureUI()
+        setElements(article: article)
     }
     
     required init?(coder: NSCoder) {
@@ -42,12 +44,19 @@ class DetailVC: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
+        stackView.distribution = .fillProportionally
         
         stackView.addArrangedSubviews([titleLabel, imageView, infoLabel, contentLabel, readArticleButton])
         
         view.addSubview(stackView)
-        stackView.pinToEdges(of: view, withPadding: 10)
+        stackView.pinToEdges(of: view, withPadding: 10, considerSafeArea: true)
         
+    }
+    
+    func setElements(article: Article) {
+        self.titleLabel.text = article.title
+        self.contentLabel.text = article.content
+        self.infoLabel.text = "Autor: \(article.author ?? "N/A") / \(article.publishedAt?.getStringRepresentation() ?? "N/A") Uhr"
     }
     
 }
