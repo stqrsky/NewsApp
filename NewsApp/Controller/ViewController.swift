@@ -25,6 +25,12 @@ class ViewController: UIViewController {
         updateNewsItems()
     }
     
+    private func configureRefreshControl() {
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl?.addTarget(self, action: #selector(updateNewsItems), for: .valueChanged)
+    }
+    
+    @objc
     func updateNewsItems() {
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
@@ -33,6 +39,10 @@ class ViewController: UIViewController {
 
             case .failure(let error):
                 print(error.rawValue)
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.refreshControl?.endRefreshing()
             }
         }
     }
