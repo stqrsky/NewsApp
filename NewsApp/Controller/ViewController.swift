@@ -22,17 +22,15 @@ class ViewController: UIViewController {
         configureVC()
         configureTableView()
         configureDataSource()
-        
+        updateNewsItems()
+    }
+    
+    func updateNewsItems() {
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
             case .success(let newsResponse):
-//                self.data = newsResponse.articles
-                
                 self.updateData(articles: newsResponse.articles)
-//                response.articles.forEach { (article) in
-//                    print(article.title ?? "N/A")
-//                }
-                
+
             case .failure(let error):
                 print(error.rawValue)
             }
