@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeFeedVC.swift
 //  NewsApp
 //
 //  Created by star on 19.02.22.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeFeedVC: UIViewController {
     enum Section {
         case main
     }
@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     var dataSource: UITableViewDiffableDataSource<Section, Article>!
     
     private var data: [Article] = []
+    
+    private var containerView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,10 @@ class ViewController: UIViewController {
     
     @objc
     func updateNewsItems() {
+        DispatchQueue.main.async {
+            self.tableView.refreshControl?.endRefreshing()
+        }
+        showLoadingSpinner()
         NetworkManager.shared.getNewsItems { (result) in
             switch result {
             case .success(let newsResponse):
@@ -41,9 +47,7 @@ class ViewController: UIViewController {
                 print(error.rawValue)
             }
             
-            DispatchQueue.main.async {
-                self.tableView.refreshControl?.endRefreshing()
-            }
+            self.dismissLoadingSpinner()
         }
     }
     
@@ -77,6 +81,37 @@ class ViewController: UIViewController {
         snapshot.appendSections([.main])
         snapshot.appendItems(articles)
         self.dataSource.apply(snapshot)
+    }
+    
+    func showLoadingSpinner() {
+        containerView = UIView()
+        view.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.pinToEdges(of: view)
+        containerView.backgroundColor = .systemBackground
+        containerView.alpha = 0
+        
+        UIView.animate(withDuration: 0.25) {
+            self.containerView.alpha = 0.6
+        }
+        
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        containerView.addSubview(activityIndicator)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
+        ])
+        
+        activityIndicator.startAnimating()
+    }
+    
+    func dismissLoadingSpinner() {
+        DispatchQueue.main.async {
+            self.containerView.removeFromSuperview()
+            self.containerView = nil
+        }
     }
     
 }
