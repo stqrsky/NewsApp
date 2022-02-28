@@ -10,7 +10,7 @@ import UIKit
 class DetailVC: UIViewController {
     
     private let titleLabel = NewsLabel(fontStyle: .headline)
-    private let imageView = UIImageView()
+    private let imageView = NewsImageView(frame: .zero)
     private let infoLabel = NewsLabel(fontStyle: .footnote)
     private let contentLabel = NewsLabel(fontStyle: .body)
     private let readArticleButton = UIButton()
