@@ -19,7 +19,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        configureVC()
         configureTableView()
         configureDataSource()
         
@@ -37,6 +37,12 @@ class ViewController: UIViewController {
                 print(error.rawValue)
             }
         }
+    }
+    
+    private func configureVC() {
+        view.backgroundColor = .systemBackground
+        title = "Nachrichten"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func configureTableView() {
@@ -67,18 +73,4 @@ class ViewController: UIViewController {
     
 }
 
-//extension ViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return data.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.reuseID, for: indexPath) as? NewsTableViewCell
-//        cell?.setCell(article: data[indexPath.row])
-//
-//        return cell ?? UITableViewCell()
-//    }
-//
-//
-//}
 
