@@ -10,11 +10,12 @@ import UIKit
 
 class NewsLabel: UILabel {
     
-    init(fontStyle: UIFont.TextStyle, numberOfLines: Int = 0) {
+    init(fontStyle: UIFont.TextStyle, numberOfLines: Int = 0, textAlignment: NSTextAlignment = .natural) {
         super.init(frame: .zero)
         
         self.font = UIFont.preferredFont(forTextStyle: fontStyle)
         self.numberOfLines = numberOfLines
+        self.textAlignment = textAlignment
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     

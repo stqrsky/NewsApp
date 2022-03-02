@@ -11,12 +11,15 @@ class DetailVC: UIViewController {
     
     private let titleLabel = NewsLabel(fontStyle: .headline)
     private let imageView = NewsImageView(frame: .zero)
-    private let infoLabel = NewsLabel(fontStyle: .footnote)
+    private let infoLabel = NewsLabel(fontStyle: .footnote, textAlignment: .center)
     private let contentLabel = NewsLabel(fontStyle: .body)
-    private let readArticleButton = UIButton()
+    private let readArticleButton = NewsButton(backgroundColor: .systemBlue, title: "Zum ganzen Artikel")
     
     private let stackView = UIStackView()
 
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    
     var article: Article!
     
     override func viewDidLoad() {
@@ -41,6 +44,16 @@ class DetailVC: UIViewController {
     }
     
     private func configureUI() {
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(scrollView)
+        scrollView.pinToEdges(of: view, considerSafeArea: true)
+        
+        scrollView.addSubview(contentView)
+        contentView.pinToEdges(of: scrollView)
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -48,8 +61,8 @@ class DetailVC: UIViewController {
         
         stackView.addArrangedSubviews([titleLabel, imageView, infoLabel, contentLabel, readArticleButton])
         
-        view.addSubview(stackView)
-        stackView.pinToEdges(of: view, withPadding: 10, considerSafeArea: true)
+        contentView.addSubview(stackView)
+        stackView.pinToEdges(of: contentView, withPadding: 10, considerSafeArea: true)
         
     }
     
@@ -57,6 +70,7 @@ class DetailVC: UIViewController {
         self.titleLabel.text = article.title
         self.contentLabel.text = article.content
         self.infoLabel.text = "Autor: \(article.author ?? "N/A") / \(article.publishedAt?.getStringRepresentation() ?? "N/A") Uhr"
+        self.imageView.image = UIImage(named: "placeholder")
     }
     
 }
