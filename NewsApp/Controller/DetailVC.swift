@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class DetailVC: UIViewController {
     
@@ -27,6 +28,10 @@ class DetailVC: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.largeTitleDisplayMode = .never
         
+        configureUI()
+        setElements(article: article)
+        configureReadArticleButton()
+        
         let appearance = UINavigationBarAppearance()
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
@@ -35,12 +40,28 @@ class DetailVC: UIViewController {
     init(article: Article) {
         super.init(nibName: nil, bundle: nil)
         self.article = article
-        configureUI()
-        setElements(article: article)
+  
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureReadArticleButton() {
+        readArticleButton.addTarget(self, action: #selector(handleReadArticleButtonDidTap), for: .touchUpInside)
+    }
+    
+    @objc
+    private func handleReadArticleButtonDidTap() {
+        guard let url = URL(string: article.url ?? "") else {
+            presentWarningAlert(title: "Fehler", message: "Die gewünschte URL konnte nicht geöffnet werden.")
+            return
+        }
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        
+        let safariVC = SFSafariViewController(url: url, configuration: config)
+        present(safariVC, animated: true)
     }
     
     private func configureUI() {
