@@ -70,7 +70,9 @@ class DetailVC: UIViewController {
         self.titleLabel.text = article.title
         self.contentLabel.text = article.content
         self.infoLabel.text = "Autor: \(article.author ?? "N/A") / \(article.publishedAt?.getStringRepresentation() ?? "N/A") Uhr"
-        self.imageView.image = UIImage(named: "placeholder")
+        
+        
+        self.imageView.setImage(urlString: article.urlToImage)
     }
     
 }

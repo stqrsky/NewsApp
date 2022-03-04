@@ -15,12 +15,18 @@ class NewsButton: UIButton {
         self.backgroundColor = backgroundColor
         self.setTitle(title, for: .normal)
         
-        titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
-        translatesAutoresizingMaskIntoConstraints = false
+        configure()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configure() {
+        titleLabel?.font = UIFont.preferredFont(forTextStyle: .callout)
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        layer.cornerRadius = 12
     }
     
 }

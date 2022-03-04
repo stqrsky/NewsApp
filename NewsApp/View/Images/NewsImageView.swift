@@ -23,6 +23,14 @@ class NewsImageView: UIImageView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setImage(urlString: String?) {
+        NetworkManager.shared.downloadImage(from: urlString) { (image) in
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }
+    }
   
 
 }

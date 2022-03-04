@@ -5,7 +5,7 @@
 //  Created by star on 20.02.22.
 //
 
-import Foundation
+import UIKit
 
 enum NewsError: String, Error {
     case universalError = "An unknown error has occurred"
@@ -21,7 +21,7 @@ class NetworkManager {
         
     }
     
-    private let baseURLString = "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey="
+    private let baseURLString = "https://newsapi.org/v2/everything?q=apple&from=2022-03-03&to=2022-03-03&sortBy=popularity&apiKey="
     private let apiKey = "242a1569a8e04ef3b980f989de060ca1"
     
     func getNewsItems (completion: @escaping ((Result<NewsResponse, NewsError>) -> Void)) {
@@ -60,5 +60,32 @@ class NetworkManager {
         }
         
         task.resume()
+    }
+    
+    func downloadImage(from urlString: String?, completed: @escaping (UIImage) -> Void) {
+        guard let url = URL(string: urlString ?? "") else {
+            completed(#imageLiteral(resourceName: "placeholder"))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            guard
+                error == nil,
+                let response = response as? HTTPURLResponse,
+                response.statusCode == 200,
+                let data = data,
+                let image = UIImage(data: data) else {
+                    
+                completed(#imageLiteral(resourceName: "placeholder"))
+                return
+            }
+            
+            completed(image)
+            
+        }
+        
+        task.resume()
+        
     }
 }
