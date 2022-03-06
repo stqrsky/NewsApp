@@ -23,6 +23,11 @@ class DetailVC: UIViewController {
     
     var article: Article!
     
+    let config = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)
+    lazy var upButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up", withConfiguration: config), style: .plain, target: self, action: #selector(handleUpButtonDidTap))
+    
+    lazy var downButton = UIBarButtonItem(image: UIImage(systemName: "arrow.down", withConfiguration: config), style: .plain, target: self, action: #selector(handleDownButtonDidTap))
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -31,6 +36,8 @@ class DetailVC: UIViewController {
         configureUI()
         setElements(article: article)
         configureReadArticleButton()
+        
+        navigationItem.rightBarButtonItems = [downButton, upButton]
         
         let appearance = UINavigationBarAppearance()
         navigationItem.standardAppearance = appearance
@@ -45,6 +52,16 @@ class DetailVC: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc
+    private func handleUpButtonDidTap() {
+        print(#function)
+    }
+    
+    @objc
+    private func handleDownButtonDidTap() {
+        print(#function)
     }
     
     private func configureReadArticleButton() {
