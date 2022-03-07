@@ -22,6 +22,7 @@ class DetailVC: UIViewController {
     private let contentView = UIView()
     
     var article: Article!
+    var articles: [Article]?
     
     let config = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)
     lazy var upButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up", withConfiguration: config), style: .plain, target: self, action: #selector(handleUpButtonDidTap))
@@ -44,9 +45,10 @@ class DetailVC: UIViewController {
         navigationItem.scrollEdgeAppearance = appearance
     }
 
-    init(article: Article) {
+    init(article: Article, articles: [Article]) {
         super.init(nibName: nil, bundle: nil)
         self.article = article
+        self.articles = articles
   
     }
     
@@ -56,12 +58,20 @@ class DetailVC: UIViewController {
     
     @objc
     private func handleUpButtonDidTap() {
-        print(#function)
+        guard let currentIndex = articles?.firstIndex(of: article),
+            let nextArticle = articles?[currentIndex - 1] else { return }
+        article = nextArticle
+        setElements(article: article)
+        
     }
     
     @objc
     private func handleDownButtonDidTap() {
-        print(#function)
+        guard let currentIndex = articles?.firstIndex(of: article),
+            let nextArticle = articles?[currentIndex + 1] else { return }
+        article = nextArticle
+        setElements(article: article)
+        
     }
     
     private func configureReadArticleButton() {

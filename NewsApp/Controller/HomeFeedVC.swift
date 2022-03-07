@@ -122,7 +122,7 @@ extension HomeFeedVC: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if let selectedArticle = dataSource.itemIdentifier(for: indexPath) {
-            let detailVC = DetailVC(article: selectedArticle)
+            let detailVC = DetailVC(article: selectedArticle, articles: articles)
             navigationController?.pushViewController(detailVC, animated: true)
         }
     }
