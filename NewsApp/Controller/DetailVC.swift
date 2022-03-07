@@ -21,7 +21,7 @@ class DetailVC: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
-    var article: Article! {
+    private var article: Article! {
         didSet {
             guard let articles = articles, let currentIndex =
                     articles.firstIndex(of: article) else {
@@ -43,12 +43,14 @@ class DetailVC: UIViewController {
             }
         }
     }
-    var articles: [Article]?
+    private var articles: [Article]?
     
     let config = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)
     lazy var upButton = UIBarButtonItem(image: UIImage(systemName: "arrow.up", withConfiguration: config), style: .plain, target: self, action: #selector(handleUpButtonDidTap))
     
     lazy var downButton = UIBarButtonItem(image: UIImage(systemName: "arrow.down", withConfiguration: config), style: .plain, target: self, action: #selector(handleDownButtonDidTap))
+    
+    lazy var favoriteButton = UIBarButtonItem(image: UIImage(systemName: "star", withConfiguration: config), style: .plain, target: self, action: #selector(handleFavoriteButtonDidTap))
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +61,11 @@ class DetailVC: UIViewController {
         setElements(article: article)
         configureReadArticleButton()
         
-        navigationItem.rightBarButtonItems = [downButton, upButton]
+        navigationItem.rightBarButtonItems = [downButton, upButton, favoriteButton]
         
-        let appearance = UINavigationBarAppearance()
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
+//        let appearance = UINavigationBarAppearance()
+//        navigationItem.standardAppearance = appearance
+//        navigationItem.scrollEdgeAppearance = appearance
     }
 
     init(article: Article, articles: [Article]) {
@@ -78,6 +80,11 @@ class DetailVC: UIViewController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc
+    private func handleFavoriteButtonDidTap() {
+        print(#function)
     }
     
     @objc
