@@ -21,7 +21,28 @@ class DetailVC: UIViewController {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     
-    var article: Article!
+    var article: Article! {
+        didSet {
+            guard let articles = articles, let currentIndex =
+                    articles.firstIndex(of: article) else {
+                        upButton.isEnabled = false
+                        downButton.isEnabled = false
+                        return
+                    }
+            
+            if currentIndex == 0 {
+                upButton.isEnabled = false
+            } else {
+                upButton.isEnabled = true
+            }
+            
+            if currentIndex == articles.count - 1 {
+                downButton.isEnabled = false
+            } else {
+                downButton.isEnabled = true
+            }
+        }
+    }
     var articles: [Article]?
     
     let config = UIImage.SymbolConfiguration(pointSize: 21, weight: .semibold)
@@ -47,9 +68,12 @@ class DetailVC: UIViewController {
 
     init(article: Article, articles: [Article]) {
         super.init(nibName: nil, bundle: nil)
-        self.article = article
-        self.articles = articles
-  
+        
+        ({
+            self.articles = articles
+            self.article = article
+        })()
+        
     }
     
     required init?(coder: NSCoder) {
