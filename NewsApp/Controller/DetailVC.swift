@@ -131,14 +131,15 @@ class DetailVC: UIViewController {
         stackView.spacing = 10
         stackView.distribution = .fillProportionally
         
-        stackView.addArrangedSubviews([titleLabel, imageView, infoLabel, contentLabel, readArticleButton])
-        
         contentView.addSubview(stackView)
         stackView.pinToEdges(of: contentView, withPadding: 10, considerSafeArea: true)
         
     }
     
     func setElements(article: Article) {
+        stackView.removeAllArrangedSubviews()
+        stackView.addArrangedSubviews([titleLabel, imageView, infoLabel, contentLabel, readArticleButton])
+        
         self.titleLabel.text = article.title
         self.contentLabel.text = article.content
         self.infoLabel.text = "Autor: \(article.author ?? "N/A") / \(article.publishedAt?.getStringRepresentation() ?? "N/A") Uhr"
