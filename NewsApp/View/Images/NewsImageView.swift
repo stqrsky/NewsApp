@@ -25,6 +25,7 @@ class NewsImageView: UIImageView {
     }
     
     func setImage(urlString: String?) {
+        image = nil
         NetworkManager.shared.downloadImage(from: urlString) { (image) in
             DispatchQueue.main.async {
                 self.image = image
