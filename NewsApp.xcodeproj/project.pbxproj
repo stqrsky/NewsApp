@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F89C7D1927D67EE3007236EF /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89C7D1827D67EE3007236EF /* PersistenceManager.swift */; };
 		F8F4478C27C13BE10064E5A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4478B27C13BE10064E5A7 /* AppDelegate.swift */; };
 		F8F4478E27C13BE10064E5A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4478D27C13BE10064E5A7 /* SceneDelegate.swift */; };
 		F8F4479027C13BE10064E5A7 /* HomeFeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8F4478F27C13BE10064E5A7 /* HomeFeedVC.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F89C7D1827D67EE3007236EF /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		F8F4478827C13BE10064E5A7 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8F4478B27C13BE10064E5A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8F4478D27C13BE10064E5A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				F8F447AA27C283590064E5A7 /* NetworkManager.swift */,
+				F89C7D1827D67EE3007236EF /* PersistenceManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				F8FE62E527CD0D42002C9498 /* UIStackView+Ext.swift in Sources */,
 				F8FE62DF27CD0200002C9498 /* UIViewController+Ext.swift in Sources */,
 				F8F447A227C279240064E5A7 /* UIView+Ext.swift in Sources */,
+				F89C7D1927D67EE3007236EF /* PersistenceManager.swift in Sources */,
 				F8FE62D927C51EA1002C9498 /* Date+Ext.swift in Sources */,
 				F8F447AB27C283590064E5A7 /* NetworkManager.swift in Sources */,
 				F8FE62EB27CD126E002C9498 /* NewsButton.swift in Sources */,

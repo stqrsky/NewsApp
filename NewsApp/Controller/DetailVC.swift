@@ -84,7 +84,7 @@ class DetailVC: UIViewController {
     
     @objc
     private func handleFavoriteButtonDidTap() {
-        print(#function)
+        PersistenceManager.shared.addFavoriteArticle(article: article)
     }
     
     @objc
