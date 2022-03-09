@@ -85,11 +85,15 @@ class DetailVC: UIViewController {
     @objc
     private func handleFavoriteButtonDidTap() {
         if PersistenceManager.shared.isArticleAlreadyFavorite(article: article) {
-            PersistenceManager.shared.removeFavoriteArticle(article: article)
-            favoriteButton.image = UIImage(systemName: "star", withConfiguration: config)
+            PersistenceManager.shared.removeFavoriteArticle(article: article) {
+                favoriteButton.image = UIImage(systemName: "star", withConfiguration: config)
+            }
+            
         } else {
-            PersistenceManager.shared.addFavoriteArticle(article: article)
-            favoriteButton.image = UIImage(systemName: "star.fill", withConfiguration: config)
+            PersistenceManager.shared.addFavoriteArticle(article: article) {
+                favoriteButton.image = UIImage(systemName: "star.fill", withConfiguration: config)
+            }
+            
         }
         
     }

@@ -12,24 +12,25 @@ class PersistenceManager {
     private init() {}
     
     private let articlesKey = "Articles_UserDefault"
+    private let defaults = UserDefaults.standard
     
-    func addFavoriteArticle(article: Article) {
+    func addFavoriteArticle(article: Article, onSuccess: () -> ()) {
         var favorites = getAllFavoriteArticles()
         favorites.append(article)
         
-        save(articles: favorites)
+        save(articles: favorites, onSuccess: onSuccess)
     }
     
-    func removeFavoriteArticle(article: Article) {
+    func removeFavoriteArticle(article: Article, onSuccess: () -> ()) {
         var favorites = getAllFavoriteArticles()
         guard let indexOfArticle = favorites.firstIndex(of: article) else { return }
         favorites.remove(at: indexOfArticle)
         
-        save(articles: favorites)
+        save(articles: favorites, onSuccess: onSuccess)
     }
     
-    func getAllFavoriteArticles() -> [Article] {
-        guard let favoriteData = UserDefaults.standard.object(forKey: articlesKey) as? Data,
+    private func getAllFavoriteArticles() -> [Article] {
+        guard let favoriteData = defaults.object(forKey: articlesKey) as? Data,
               let articles = try? JSONDecoder().decode([Article].self, from: favoriteData)
         else { return [] }
         
@@ -41,11 +42,12 @@ class PersistenceManager {
         return articles.contains(article)
     }
     
-    func save(articles: [Article]) {
+    private func save(articles: [Article], onSuccess: () -> ()) {
         guard let dataToSave = try? JSONEncoder().encode(articles) else {
             return }
         
-        UserDefaults.standard.set(dataToSave, forKey: articlesKey)
+        defaults.set(dataToSave, forKey: articlesKey)
+        onSuccess()
     }
     
 }
