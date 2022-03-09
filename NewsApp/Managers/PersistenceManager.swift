@@ -15,8 +15,16 @@ class PersistenceManager {
     
     func addFavoriteArticle(article: Article) {
         var favorites = getAllFavoriteArticles()
-        
         favorites.append(article)
+        
+        save(articles: favorites)
+    }
+    
+    func removeFavoriteArticle(article: Article) {
+        var favorites = getAllFavoriteArticles()
+        guard let indexOfArticle = favorites.firstIndex(of: article) else { return }
+        favorites.remove(at: indexOfArticle)
+        
         save(articles: favorites)
     }
     
@@ -26,6 +34,11 @@ class PersistenceManager {
         else { return [] }
         
         return articles
+    }
+    
+    func isArticleAlreadyFavorite(article: Article) -> Bool {
+        let articles = getAllFavoriteArticles()
+        return articles.contains(article)
     }
     
     func save(articles: [Article]) {
