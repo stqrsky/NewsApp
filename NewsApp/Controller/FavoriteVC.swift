@@ -11,7 +11,15 @@ class FavoriteVC: HomeFeedVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemTeal
+        tableView.tableFooterView = UIView()
+        tableView.refreshControl = nil
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(favoritesDidChange), name: Notification.Name("favoritesDidChange"), object: nil)
+    }
+    
+    @objc
+    func favoritesDidChange() {
+        updateNewsItems()
     }
     
     override func configureVC() {

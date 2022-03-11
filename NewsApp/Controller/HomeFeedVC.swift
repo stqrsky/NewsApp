@@ -12,7 +12,7 @@ class HomeFeedVC: UIViewController {
         case main
     }
     
-    private let tableView = UITableView()
+    let tableView = UITableView()
     var dataSource: UITableViewDiffableDataSource<Section, Article>!
     
     var articles: [Article] = []
