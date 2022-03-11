@@ -81,7 +81,10 @@ class HomeFeedVC: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Article>()
         snapshot.appendSections([.main])
         snapshot.appendItems(articles)
-        self.dataSource.apply(snapshot)
+        
+        DispatchQueue.main.async {
+            self.dataSource.apply(snapshot)
+        }
     }
     
     func showLoadingSpinner() {

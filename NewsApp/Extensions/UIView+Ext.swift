@@ -8,6 +8,12 @@
 import UIKit
 
 extension UIView {
+    func addSubviews(views: [UIView]) {
+        views.forEach {
+            addSubview($0)
+        }
+    }
+    
     func pinToEdges(of superview: UIView, withPadding padding: CGFloat = 0, considerSafeArea: Bool = false) {
         
         NSLayoutConstraint.activate([

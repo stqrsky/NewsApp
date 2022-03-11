@@ -9,12 +9,14 @@ import UIKit
 
 class FavoriteVC: HomeFeedVC {
 
+    private let emptyStateView = EmptyStateView(imageSystemName: "star", text: "Es sind keine Favoriten verfügbar")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         tableView.refreshControl = nil
         
-        NotificationCenter.default.addObserver(self, selector: #selector(favoritesDidChange), name: Notification.Name("favoritesDidChange"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(favoritesDidChange), name: Notification.Name("favoritesDidChange"), object: nil) //anpassen
     }
     
     @objc
@@ -31,6 +33,12 @@ class FavoriteVC: HomeFeedVC {
     override func updateNewsItems() {
         self.articles = PersistenceManager.shared.getAllFavoriteArticles()
         updateData(articles: articles)
+        
+        if articles.isEmpty {
+            tableView.backgroundView = emptyStateView
+        } else {
+            tableView.backgroundView = nil
+        }
     }
 
 }
