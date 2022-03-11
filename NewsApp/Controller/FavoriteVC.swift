@@ -35,7 +35,7 @@ class FavoriteVC: HomeFeedVC {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         tableView.refreshControl = nil
-        navigationItem.rightBarButtonItem = editButtonItem
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateNewsItems), name: .favoritesDidChange, object: nil)
     }
 
@@ -56,8 +56,13 @@ class FavoriteVC: HomeFeedVC {
         
         if articles.isEmpty {
             tableView.backgroundView = emptyStateView
+            tableView.setEditing(false, animated: true)
+            navigationItem.rightBarButtonItem = nil
+            tableView.isScrollEnabled = false
         } else {
             tableView.backgroundView = nil
+            navigationItem.rightBarButtonItem = editButtonItem
+            tableView.isScrollEnabled = true
         }
     }
     
