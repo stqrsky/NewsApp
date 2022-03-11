@@ -83,7 +83,7 @@ class HomeFeedVC: UIViewController {
         snapshot.appendItems(articles)
         
         DispatchQueue.main.async {
-            self.dataSource.apply(snapshot)
+            self.dataSource.apply(snapshot, animatingDifferences: self.tableView.window != nil)
         }
     }
     

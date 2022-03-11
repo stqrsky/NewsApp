@@ -161,7 +161,7 @@ class DetailVC: UIViewController {
         stackView.addArrangedSubviews([titleLabel, imageView, infoLabel, contentLabel, readArticleButton])
         
         self.titleLabel.text = article.title
-        self.contentLabel.text = article.content
+        self.contentLabel.text = article.content == nil || article.content == "" ? article.description : article.content
         self.infoLabel.text = "Autor: \(article.author ?? "N/A") / \(article.publishedAt?.getStringRepresentation() ?? "N/A") Uhr"
         
         
