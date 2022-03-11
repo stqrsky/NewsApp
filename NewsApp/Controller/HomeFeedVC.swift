@@ -15,7 +15,7 @@ class HomeFeedVC: UIViewController {
     private let tableView = UITableView()
     var dataSource: UITableViewDiffableDataSource<Section, Article>!
     
-    private var articles: [Article] = []
+    var articles: [Article] = []
     
     private var containerView: UIView!
 
@@ -52,7 +52,7 @@ class HomeFeedVC: UIViewController {
         }
     }
     
-    private func configureVC() {
+    func configureVC() {
         view.backgroundColor = .systemBackground
         title = "Nachrichten"
         navigationController?.navigationBar.prefersLargeTitles = true

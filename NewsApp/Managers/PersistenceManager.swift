@@ -29,7 +29,7 @@ class PersistenceManager {
         save(articles: favorites, onSuccess: onSuccess)
     }
     
-    private func getAllFavoriteArticles() -> [Article] {
+    func getAllFavoriteArticles() -> [Article] {
         guard let favoriteData = defaults.object(forKey: articlesKey) as? Data,
               let articles = try? JSONDecoder().decode([Article].self, from: favoriteData)
         else { return [] }
