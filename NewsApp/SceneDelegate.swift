@@ -18,11 +18,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = UINavigationController(rootViewController: HomeFeedVC())
+        window.rootViewController = createTabBarController()
         self.window = window
         window.makeKeyAndVisible()
     }
 
+    func createTabBarController() -> UITabBarController {
+        let tabBarController = UITabBarController()
+        
+        let homeFeedVC = UINavigationController(rootViewController: HomeFeedVC())
+        homeFeedVC.tabBarItem = UITabBarItem(title: "Nachrichten", image: UIImage(systemName: "list.dash"), selectedImage: nil)
+        
+        let favoriteVC = UINavigationController(rootViewController: FavoriteVC())
+        favoriteVC.tabBarItem = UITabBarItem(title: "Favoriten", image: UIImage(systemName: "star"), selectedImage: nil)
+        
+        tabBarController.viewControllers = [homeFeedVC, favoriteVC]
+            
+        return tabBarController
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.
